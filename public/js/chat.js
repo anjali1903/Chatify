@@ -12,7 +12,10 @@ const locationMessageTemplate = document.querySelector(
 ).innerHTML;
 socket.on("message", message => {
   console.log(message);
-  const html = Mustache.render(messageTemplate, { message });
+  const html = Mustache.render(messageTemplate, {
+    createdAt: moment(message.createdAt).format("DD MMM h:mm a"),
+    message: message.text
+  });
   $messages.insertAdjacentHTML("beforeend", html);
 });
 
@@ -35,7 +38,6 @@ $messageForm.addEventListener("submit", e => {
     if (error) {
       return console.log(error);
     }
-    beforebegin;
     console.log("Message delivered!");
   });
 });
